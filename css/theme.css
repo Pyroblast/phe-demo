@@ -1,0 +1,36 @@
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
+.bs-docs-header {
+padding-top: 60px;
+padding-bottom: 60px;
+font-size: 24px;
+text-align: left;
+}
+.bs-docs-header {
+margin-bottom: 40px;
+font-size: 20px;
+}
+.bs-docs-header, .bs-docs-masthead {
+position: relative;
+padding: 30px 15px;
+text-shadow: 0 1px 0 rgba(0,0,0,.1);
+background-color: #fff;
+background-repeat: repeat-x;
+}
