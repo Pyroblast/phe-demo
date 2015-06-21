@@ -162,13 +162,165 @@ $miu_d_T_2_w = $row4[6];
 if ($W_1 >= $W_2) {
 	
 } else {
-	//$V_2_c=pow(($delta_p_2*1000/$TK_C_Eu/(pow(($plate['De']/$miu_d2),$TK_m_Eu))/(pow($roll2,($TK_m_Eu+1)))),1/($TK_m_Eu+2));
-	$V_2_c=exp((1/($TK_m_Eu+2)) * log($delta_p_2*1000/$TK_C_Eu/(exp($TK_m_Eu*log($plate['De']/$miu_d2)))/(exp(($TK_m_Eu+1)*log($roll2)))));
-	$V_1_c=$V_2_c * $roll2 * $W_1/$W_2/$roll1;
-	
+	$TK_V_2_c=exp((1/($plate['TK_m_Eu']+2)) * 
+		log($delta_p_2*1000/$plate['TK_C_Eu']/(exp($plate['TK_m_Eu']*
+			log($plate['De']/$miu_d2)))/(exp(($plate['TK_m_Eu']+1)*log($roll2)))));
+	$TK_V_1_c=$TK_V_2_c * $roll2 * $W_1/$W_2/$roll1;
+	$TK_Re_2=$TK_V_2_c*$roll2*$plate['De']/$miu_d2;
+	$TK_Re_1=$TK_V_1_c*$roll1*$plate['De']/$miu_d1;
+	$TK_Nu_2=$plate['TK_C_Nu']*exp($plate['TK_m_Nu']*log($TK_Re_2))
+	*exp(0.4*log($Pr2))*exp(0.14*log(($miu_d2/$miu_d_T_2_w)));
+	$TK_Nu_1=$plate['TK_C_Nu']*exp($plate['TK_m_Nu']*log($TK_Re_1))
+	*exp(0.4*log($Pr1))*exp(0.14*log(($miu_d1/$miu_d_T_1_w)));
+	$TK_h_2=$TK_Nu_2*$k2/$plate['De'];
+	$TK_h_1=$TK_Nu_1*$k1/$plate['De'];
+	$TK_U=1/((1/$TK_h_2)+(1/$TK_h_1)+($plate['t_p']/$k_p));
+	$TK_NTU_1=2*$TK_U*$plate['A_r']/($TK_V_1_c*$roll1*$plate['A_c']*$C_p1*1000);
+	$TK_sigma_1=($TK_V_1_c*$roll1*$C_p1)/($TK_V_2_c*$roll2*$C_p2);
+	$TK_R_1=((1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))))/
+	(($TK_sigma_1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))));
+	$TK_t_1=$TK_R_1*$Delta_ti;
+	$TK_W_1=$TK_V_1_c*$plate['A_c']*$roll1;
 }	
 
-echo $V_2_c;
+echo "TK参数：<br >".
+"$roll2<br />".
+"$TK_V_2_c<br />".
+"$TK_V_1_c<br >".
+"$TK_Re_2<br >".
+"$TK_Re_1<br >".
+"$TK_Nu_2<br >".
+"$TK_Nu_1<br >";
+ec($TK_h_2);
+ec($TK_h_1);
+ec($TK_U);
+ec($TK_NTU_1);
+ec($TK_sigma_1);
+ec($TK_R_1);
+ec($TK_t_1);
+ec($TK_W_1);
+
+//计算TM
+if ($W_1 >= $W_2) {
+	
+} else {
+	$TM_V_2_c=exp((1/($plate['TM_m_Eu']+2)) * 
+		log($delta_p_2*1000/$plate['TM_C_Eu']/(exp($plate['TM_m_Eu']*
+			log($plate['De']/$miu_d2)))/(exp(($plate['TM_m_Eu']+1)*log($roll2)))));
+	$TM_V_1_c=$TM_V_2_c * $roll2 * $W_1/$W_2/$roll1;
+	$TM_Re_2=$TM_V_2_c*$roll2*$plate['De']/$miu_d2;
+	$TM_Re_1=$TM_V_1_c*$roll1*$plate['De']/$miu_d1;
+	$TM_Nu_2=$plate['TM_C_Nu']*exp($plate['TM_m_Nu']*log($TM_Re_2))
+	*exp(0.4*log($Pr2))*exp(0.14*log(($miu_d2/$miu_d_T_2_w)));
+	$TM_Nu_1=$plate['TM_C_Nu']*exp($plate['TM_m_Nu']*log($TM_Re_1))
+	*exp(0.4*log($Pr1))*exp(0.14*log(($miu_d1/$miu_d_T_1_w)));
+	$TM_h_2=$TM_Nu_2*$k2/$plate['De'];
+	$TM_h_1=$TM_Nu_1*$k1/$plate['De'];
+	$TM_U=1/((1/$TM_h_2)+(1/$TM_h_1)+($plate['t_p']/$k_p));
+	$TM_NTU_1=2*$TM_U*$plate['A_r']/($TM_V_1_c*$roll1*$plate['A_c']*$C_p1*1000);
+	$TM_sigma_1=($TM_V_1_c*$roll1*$C_p1)/($TM_V_2_c*$roll2*$C_p2);
+	$TM_R_1=((1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))))/
+	(($TM_sigma_1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))));
+	$TM_t_1=$TM_R_1*$Delta_ti;
+	$TM_W_1=$TM_V_1_c*$plate['A_c']*$roll1;
+}	
+
+echo "TM参数：<br >".
+"$roll2<br />".
+"$TM_V_2_c<br />".
+"$TM_V_1_c<br >".
+"$TM_Re_2<br >".
+"$TM_Re_1<br >".
+"$TM_Nu_2<br >".
+"$TM_Nu_1<br >";
+ec($TM_h_2);
+ec($TM_h_1);
+ec($TM_U);
+ec($TM_NTU_1);
+ec($TM_sigma_1);
+ec($TM_R_1);
+ec($TM_t_1);
+ec($TM_W_1);
+
+//计算TL
+if ($W_1 >= $W_2) {
+	
+} else {
+	$TL_V_2_c=exp((1/($plate['TL_m_Eu']+2)) * 
+		log($delta_p_2*1000/$plate['TL_C_Eu']/(exp($plate['TL_m_Eu']*
+			log($plate['De']/$miu_d2)))/(exp(($plate['TL_m_Eu']+1)*log($roll2)))));
+	$TL_V_1_c=$TL_V_2_c * $roll2 * $W_1/$W_2/$roll1;
+	$TL_Re_2=$TL_V_2_c*$roll2*$plate['De']/$miu_d2;
+	$TL_Re_1=$TL_V_1_c*$roll1*$plate['De']/$miu_d1;
+	$TL_Nu_2=$plate['TL_C_Nu']*exp($plate['TL_m_Nu']*log($TL_Re_2))
+	*exp(0.4*log($Pr2))*exp(0.14*log(($miu_d2/$miu_d_T_2_w)));
+	$TL_Nu_1=$plate['TL_C_Nu']*exp($plate['TL_m_Nu']*log($TL_Re_1))
+	*exp(0.4*log($Pr1))*exp(0.14*log(($miu_d1/$miu_d_T_1_w)));
+	$TL_h_2=$TL_Nu_2*$k2/$plate['De'];
+	$TL_h_1=$TL_Nu_1*$k1/$plate['De'];
+	$TL_U=1/((1/$TL_h_2)+(1/$TL_h_1)+($plate['t_p']/$k_p));
+	$TL_NTU_1=2*$TL_U*$plate['A_r']/($TL_V_1_c*$roll1*$plate['A_c']*$C_p1*1000);
+	$TL_sigma_1=($TL_V_1_c*$roll1*$C_p1)/($TL_V_2_c*$roll2*$C_p2);
+	$TL_R_1=((1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))))/
+	(($TL_sigma_1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))));
+	$TL_t_1=$TL_R_1*$Delta_ti;
+	$TL_W_1=$TL_V_1_c*$plate['A_c']*$roll1;
+}	
+
+echo "TL参数：<br >".
+"$roll2<br />".
+"$TL_V_2_c<br />".
+"$TL_V_1_c<br >".
+"$TL_Re_2<br >".
+"$TL_Re_1<br >".
+"$TL_Nu_2<br >".
+"$TL_Nu_1<br >";
+ec($TL_h_2);
+ec($TL_h_1);
+ec($TL_U);
+ec($TL_NTU_1);
+ec($TL_sigma_1);
+ec($TL_R_1);
+ec($TL_t_1);
+ec($TL_W_1);
+
+//计算整机R
+$Total_sigma=($W_1*$C_p1)/($W_2*$C_p2);
+$Total_R=((1-exp($NTU*(1-$Total_sigma))*log(exp(1))))/
+	(($Total_sigma-exp($NTU*(1-$Total_sigma))*log(exp(1))));
+echo "整机R：<br >";
+ec($Total_R);
+//计算温度
+$T_TK_1_b=$T_1_i-$TK_t_1/2;
+$T_TM_1_b=$T_1_i-$TM_t_1/2;
+$T_TL_1_b=$T_1_i-$TL_t_1/2;
+$T_TK_2_b=$T_2_i+$TK_t_1/2*$TK_sigma_1;
+$T_TM_2_b=$T_2_i+$TM_t_1/2*$TM_sigma_1;
+$T_TL_2_b=$T_2_i+$TL_t_1/2*$TL_sigma_1;
+echo "实际各板定性温度：<br >";
+ec($T_TK_1_b);
+ec($T_TM_1_b);
+ec($T_TL_1_b);
+ec($T_TK_2_b);
+ec($T_TM_2_b);
+ec($T_TL_2_b);
+
+//计算板片数,M_为质量守恒，E_为能量守恒
+$M_TK_Ncp=ceil($W_1/$TK_W_1);
+$M_TM_Ncp=ceil($W_1/$TM_W_1);
+$M_TL_Ncp=ceil($W_1/$TL_W_1);
+echo "质量守恒下的TK、TM、TL的板片数:<br >";
+ec($M_TK_Ncp);
+ec($M_TM_Ncp);
+ec($M_TL_Ncp);
+$E_TK_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TK_W_1*$Delta_ti*$TK_R_1));
+$E_TM_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TM_W_1*$Delta_ti*$TM_R_1));
+$E_TL_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TL_W_1*$Delta_ti*$TL_R_1));
+echo "能量守恒下的TK、TM、TL的板片数:<br >";
+ec($E_TK_Ncp);
+ec($E_TM_Ncp);
+ec($E_TL_Ncp);
+
 /*
 	待补充：
 	$miu_b = ;
