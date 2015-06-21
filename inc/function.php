@@ -24,6 +24,10 @@ function input($T_1_i,$T_1_o,$W_1,$delta_p_1,$T_2_i,$T_2_o,$W_2,$delta_p_2,$Q)
 	"冷侧压降" . $delta_p_2 . "<br>" . 
 	"热负荷" . $Q . "<br>";
 }
+function ec($a)
+{
+	echo "$a<br >";
+}
 //计算管口流速Gp，查物性库和板型库，返回符合条件的板型型号
 /*
 function Gp()
