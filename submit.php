@@ -6,6 +6,37 @@ include("inc/function.php");
 <html lang="zh-cn">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>PHE Tools</title>
+
+<!-- Bootstrap core CSS -->
+<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Optional Bootstrap Theme -->
+  <link href="data:text/css;charset=utf-8," 
+  data-href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" 
+  rel="stylesheet" id="bs-theme-stylesheet">
+
+<link href="css/patch.css" rel="stylesheet">
+
+<!-- Documentation extras -->
+
+<link href="css/docs.min.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+  var _hmt = _hmt || [];
+</script>
   </head>
   <body>
 
@@ -38,8 +69,8 @@ $Q=$_POST['Q'];
 //【计算定性温度T_1_b=(T_1_i+T_1_o)/2，T_2_b=(T_2_i+T_2_o)/2，
 $T_1_b = ($T_1_i+$T_1_o)*0.5;
 $T_2_b = ($T_2_i+$T_2_o)*0.5;
-echo "定性温度T1b $T_1_b" . "<br >";
-echo "定性温度T2b $T_2_b" . "<br >";
+//echo "定性温度T1b $T_1_b" . "<br >";
+//echo "定性温度T2b $T_2_b" . "<br >";
 //计算   Δti	      HI-CO	     HO-CI	  HI-HO	    CO-CI	  LMTD	    NTU
 //    $Delta_ti       $HICO      $HOCI    $HIHO     $COCI     $LMTD     $NTU
 $Delta_ti = $T_1_i - $T_2_i;
@@ -88,7 +119,7 @@ $Pr2 = $row2[7];
 $W_1 = $Q/$C_p1/$HIHO;
 $W_2 = $Q/$C_p2/$COCI;
 //判断参数是否有效
-input($T_1_i,$T_1_o,$W_1,$delta_p_1,$T_2_i,$T_2_o,$W_2,$delta_p_2,$Q);
+//input($T_1_i,$T_1_o,$W_1,$delta_p_1,$T_2_i,$T_2_o,$W_2,$delta_p_2,$Q);
 
 //echo "$W_1" . "<br >" . "$W_2" . "<br >";
 //根据输入的温度和厚度查库找到合适的材质的导热率k_p，
@@ -143,7 +174,7 @@ $plate = array(
 	'TL_C_Eu' => 1535.383217,
 	'TL_m_Eu' => -0.210683492,
 );
-print_r($plate);
+//print_r($plate);
 //计算T_1_w、T_2_w，算法待补充。
 $T_1_w = round(62.24);
 $T_2_w = round(59.76079105);
@@ -182,7 +213,7 @@ if ($W_1 >= $W_2) {
 	$TK_t_1=$TK_R_1*$Delta_ti;
 	$TK_W_1=$TK_V_1_c*$plate['A_c']*$roll1;
 }	
-
+/*
 echo "TK参数：<br >".
 "$roll2<br />".
 "$TK_V_2_c<br />".
@@ -199,7 +230,7 @@ ec($TK_sigma_1);
 ec($TK_R_1);
 ec($TK_t_1);
 ec($TK_W_1);
-
+*/
 //计算TM
 if ($W_1 >= $W_2) {
 	
@@ -224,7 +255,7 @@ if ($W_1 >= $W_2) {
 	$TM_t_1=$TM_R_1*$Delta_ti;
 	$TM_W_1=$TM_V_1_c*$plate['A_c']*$roll1;
 }	
-
+/*
 echo "TM参数：<br >".
 "$roll2<br />".
 "$TM_V_2_c<br />".
@@ -241,7 +272,7 @@ ec($TM_sigma_1);
 ec($TM_R_1);
 ec($TM_t_1);
 ec($TM_W_1);
-
+*/
 //计算TL
 if ($W_1 >= $W_2) {
 	
@@ -266,7 +297,7 @@ if ($W_1 >= $W_2) {
 	$TL_t_1=$TL_R_1*$Delta_ti;
 	$TL_W_1=$TL_V_1_c*$plate['A_c']*$roll1;
 }	
-
+/*
 echo "TL参数：<br >".
 "$roll2<br />".
 "$TL_V_2_c<br />".
@@ -283,13 +314,15 @@ ec($TL_sigma_1);
 ec($TL_R_1);
 ec($TL_t_1);
 ec($TL_W_1);
-
+*/
 //计算整机R
 $Total_sigma=($W_1*$C_p1)/($W_2*$C_p2);
 $Total_R=((1-exp($NTU*(1-$Total_sigma))*log(exp(1))))/
 	(($Total_sigma-exp($NTU*(1-$Total_sigma))*log(exp(1))));
+/*
 echo "整机R：<br >";
 ec($Total_R);
+*/
 //计算温度
 $T_TK_1_b=$T_1_i-$TK_t_1/2;
 $T_TM_1_b=$T_1_i-$TM_t_1/2;
@@ -297,6 +330,7 @@ $T_TL_1_b=$T_1_i-$TL_t_1/2;
 $T_TK_2_b=$T_2_i+$TK_t_1/2*$TK_sigma_1;
 $T_TM_2_b=$T_2_i+$TM_t_1/2*$TM_sigma_1;
 $T_TL_2_b=$T_2_i+$TL_t_1/2*$TL_sigma_1;
+/*
 echo "实际各板定性温度：<br >";
 ec($T_TK_1_b);
 ec($T_TM_1_b);
@@ -304,23 +338,26 @@ ec($T_TL_1_b);
 ec($T_TK_2_b);
 ec($T_TM_2_b);
 ec($T_TL_2_b);
-
+*/
 //计算板片数,M_为质量守恒，E_为能量守恒
 $M_TK_Ncp=ceil($W_1/$TK_W_1);
 $M_TM_Ncp=ceil($W_1/$TM_W_1);
 $M_TL_Ncp=ceil($W_1/$TL_W_1);
+/*
 echo "质量守恒下的TK、TM、TL的板片数:<br >";
 ec($M_TK_Ncp);
 ec($M_TM_Ncp);
 ec($M_TL_Ncp);
+*/
 $E_TK_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TK_W_1*$Delta_ti*$TK_R_1));
 $E_TM_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TM_W_1*$Delta_ti*$TM_R_1));
 $E_TL_Ncp=ceil($W_1*$Delta_ti*$Total_R/($TL_W_1*$Delta_ti*$TL_R_1));
+/*
 echo "能量守恒下的TK、TM、TL的板片数:<br >";
 ec($E_TK_Ncp);
 ec($E_TM_Ncp);
 ec($E_TL_Ncp);
-
+*/
 /*
 	待补充：
 	$miu_b = ;
@@ -382,5 +419,753 @@ if ((ΔT1'-ΔT1) < 1) {
  */
 
 ?>
+<div class="container">
+<br >
+	<div class="panel panel-default">
+	  <div class="panel-heading">用户输入值</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>热侧进口温度</th>
+	    		<th><?=$T_1_i?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>热侧出口温度</th>
+	    		<th><?=$T_1_o?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>	
+	    		<th>3</th>
+	    		<th>热侧流量</th>
+	    		<th><?=$W_1?></th>
+	    		<th>m³/s</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>热侧压降</th>
+	    		<th><?=$delta_p_1?></th>
+	    		<th>lbf/ft2</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>冷侧进口温度</th>
+	    		<th><?=$T_2_i?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>	
+	    		<th>6</th>
+	    		<th>冷侧出口温度</th>
+	    		<th><?=$T_2_o?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>	
+	    		<th>7</th>
+	    		<th>冷侧流量</th>
+	    		<th><?=$W_2?></th>
+	    		<th>m³/s</th>
+	    	</tr>
+	    	<tr>	
+	    		<th>8</th>
+	    		<th>冷侧压降</th>
+	    		<th><?=$delta_p_2?></th>
+	    		<th>lbf/ft2</th>
+	    	</tr>
+	    	<tr>	
+	    		<th>9</th>
+	    		<th>热负荷</th>
+	    		<th><?=$Q?></th>
+	    		<th></th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">定性温度</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>定性温度T_1_b</th>
+	    		<th><?=$T_1_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>定性温度T_2_b</th>
+	    		<th><?=$T_2_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">Δti|HI-CO|HO-CI|HI-HO|CO-CI|LMTD|NTU</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>Δti</th>
+	    		<th><?=$Delta_ti?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>HI-CO</th>
+	    		<th><?=$HICO?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>HO-CI</th>
+	    		<th><?=$HOCI?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>HI-HO</th>
+	    		<th><?=$HIHO?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>CO-CI</th>
+	    		<th><?=$COCI?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>LMTD</th>
+	    		<th><?=$LMTD?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>NTU</th>
+	    		<th><?=$NTU?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">冷热侧定性温度下的各介质物性参数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>roll1</th>
+	    		<th><?=$roll1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>C_p1</th>
+	    		<th><?=$C_p1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>k1</th>
+	    		<th><?=$k1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>miu_d1</th>
+	    		<th><?=$miu_d1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>Pr1</th>
+	    		<th><?=$Pr1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>roll2</th>
+	    		<th><?=$roll2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>C_p2</th>
+	    		<th><?=$C_p2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>8</th>
+	    		<th>k2</th>
+	    		<th><?=$k2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>9</th>
+	    		<th>miu_d2</th>
+	    		<th><?=$miu_d2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>10</th>
+	    		<th>Pr2</th>
+	    		<th><?=$Pr2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">流速、导热率</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>W_1</th>
+	    		<th><?=$W_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>W_2</th>
+	    		<th><?=$W_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>k_p</th>
+	    		<th><?=$k_p?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>N_p</th>
+	    		<th><?=$N_p?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">根据T_1_w和T_2_w的值查询粘度</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>T_1_w</th>
+	    		<th><?=$T_1_w?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>T_2_w</th>
+	    		<th><?=$T_2_w?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>miu_d_T_1_w</th>
+	    		<th><?=$miu_d_T_1_w?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>miu_d_T_2_w</th>
+	    		<th><?=$miu_d_T_2_w?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">TK参数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>TK_V_2_c</th>
+	    		<th><?=$TK_V_2_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>TK_V_1_c</th>
+	    		<th><?=$TK_V_1_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>TK_Re_2</th>
+	    		<th><?=$TK_Re_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>TK_Re_1</th>
+	    		<th><?=$TK_Re_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>TK_Nu_2</th>
+	    		<th><?=$TK_Nu_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>TK_Nu_1</th>
+	    		<th><?=$TK_Nu_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>TK_h_2</th>
+	    		<th><?=$TK_h_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>8</th>
+	    		<th>TK_h_1</th>
+	    		<th><?=$TK_h_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>9</th>
+	    		<th>TK_U</th>
+	    		<th><?=$TK_U?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>10</th>
+	    		<th>TK_NTU_1</th>
+	    		<th><?=$TK_NTU_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>11</th>
+	    		<th>TK_sigma_1</th>
+	    		<th><?=$TK_sigma_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>12</th>
+	    		<th>TK_R_1</th>
+	    		<th><?=$TK_R_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>13</th>
+	    		<th>TK_t_1</th>
+	    		<th><?=$TK_t_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>14</th>
+	    		<th>TK_W_1</th>
+	    		<th><?=$TK_W_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">TM参数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>TM_V_2_c</th>
+	    		<th><?=$TM_V_2_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>TM_V_1_c</th>
+	    		<th><?=$TM_V_1_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>TM_Re_2</th>
+	    		<th><?=$TM_Re_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>TM_Re_1</th>
+	    		<th><?=$TM_Re_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>TM_Nu_2</th>
+	    		<th><?=$TM_Nu_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>TM_Nu_1</th>
+	    		<th><?=$TM_Nu_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>TM_h_2</th>
+	    		<th><?=$TM_h_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>8</th>
+	    		<th>TM_h_1</th>
+	    		<th><?=$TM_h_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>9</th>
+	    		<th>TM_U</th>
+	    		<th><?=$TM_U?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>10</th>
+	    		<th>TM_NTU_1</th>
+	    		<th><?=$TM_NTU_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>11</th>
+	    		<th>TM_sigma_1</th>
+	    		<th><?=$TM_sigma_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>12</th>
+	    		<th>TM_R_1</th>
+	    		<th><?=$TM_R_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>13</th>
+	    		<th>TM_t_1</th>
+	    		<th><?=$TM_t_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>14</th>
+	    		<th>TM_W_1</th>
+	    		<th><?=$TM_W_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">TL参数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>TL_V_2_c</th>
+	    		<th><?=$TL_V_2_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>TL_V_1_c</th>
+	    		<th><?=$TL_V_1_c?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>TL_Re_2</th>
+	    		<th><?=$TL_Re_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>TL_Re_1</th>
+	    		<th><?=$TL_Re_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>TL_Nu_2</th>
+	    		<th><?=$TL_Nu_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>TL_Nu_1</th>
+	    		<th><?=$TL_Nu_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>TL_h_2</th>
+	    		<th><?=$TL_h_2?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>8</th>
+	    		<th>TL_h_1</th>
+	    		<th><?=$TL_h_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>9</th>
+	    		<th>TL_U</th>
+	    		<th><?=$TL_U?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>10</th>
+	    		<th>TL_NTU_1</th>
+	    		<th><?=$TL_NTU_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>11</th>
+	    		<th>TL_sigma_1</th>
+	    		<th><?=$TL_sigma_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>12</th>
+	    		<th>TL_R_1</th>
+	    		<th><?=$TL_R_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>13</th>
+	    		<th>TL_t_1</th>
+	    		<th><?=$TL_t_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>14</th>
+	    		<th>TL_W_1</th>
+	    		<th><?=$TL_W_1?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">整机R和实际各板定性温度</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>Total_sigma</th>
+	    		<th><?=$Total_sigma?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>Total_R</th>
+	    		<th><?=$Total_R?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>T_TK_1_b</th>
+	    		<th><?=$T_TK_1_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>4</th>
+	    		<th>T_TM_1_b</th>
+	    		<th><?=$T_TM_1_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>5</th>
+	    		<th>T_TL_1_b</th>
+	    		<th><?=$T_TL_1_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>6</th>
+	    		<th>T_TK_2_b</th>
+	    		<th><?=$T_TK_2_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>7</th>
+	    		<th>T_TM_2_b</th>
+	    		<th><?=$T_TM_2_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>8</th>
+	    		<th>T_TL_2_b</th>
+	    		<th><?=$T_TL_2_b?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">质量守恒下的TK、TM、TL的板片数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>M_TK_Ncp</th>
+	    		<th><?=$M_TK_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>M_TM_Ncp</th>
+	    		<th><?=$M_TM_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>M_TL_Ncp</th>
+	    		<th><?=$M_TL_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+	<hr >
+	<div class="panel panel-default">
+	  <div class="panel-heading">能量守恒下的TK、TM、TL的板片数</div>
+	  <table class="table table-hover table-bordered">
+	  	<thead>
+	  		<tr>
+	  			<th width="5%">#</th>
+	  			<th width="40%">名称</th>
+	  			<th width="40%">数值</th>
+	  			<th width="15%">单位</th>
+	  		</tr>
+	  	</thead>
+	    <tbody>
+	    	<tr>
+	    		<th>1</th>
+	    		<th>E_TK_Ncp</th>
+	    		<th><?=$E_TK_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>2</th>
+	    		<th>E_TM_Ncp</th>
+	    		<th><?=$E_TM_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    	<tr>
+	    		<th>3</th>
+	    		<th>E_TL_Ncp</th>
+	    		<th><?=$E_TL_Ncp?></th>
+	    		<th>°C</th>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>	
+
+</div>
+
   </body>
 </html>
