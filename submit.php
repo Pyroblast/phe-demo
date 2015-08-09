@@ -63,20 +63,20 @@ include("inc/function.php");
 	接口面积     -> A_p = pie * (D/2) * (D/2)
  */
 //获取用户输入变量
-if (empty($_POST['T_1_i'])||empty($_POST['T_1_o'])||empty($_POST['W_1'])||empty($_POST['delta_p_1'])
+if (empty($_POST['T_1_i'])||empty($_POST['T_1_o'])||empty($_POST['delta_p_1'])
 	||empty($_POST['T_2_i'])||empty($_POST['T_2_o'])
-	||empty($_POST['W_2'])||empty($_POST['delta_p_2'])||empty($_POST['Q'])) {
+	||empty($_POST['delta_p_2'])||empty($_POST['Q'])) {
 	echo "请确认参数输入完整。";	
 	die();
 }
 
 $T_1_i=$_POST['T_1_i'];
 $T_1_o=$_POST['T_1_o'];
-$W_1=$_POST['W_1'];
+//$W_1=$_POST['W_1'];
 $delta_p_1=$_POST['delta_p_1'];
 $T_2_i=$_POST['T_2_i'];
 $T_2_o=$_POST['T_2_o'];
-$W_2=$_POST['W_2'];
+//$W_2=$_POST['W_2'];
 $delta_p_2=$_POST['delta_p_2'];
 $Q=$_POST['Q'];	
 
@@ -590,7 +590,12 @@ if ((ΔT1'-ΔT1) < 1) {
 	</div>
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">定性温度</div>
+	  <div class="panel-heading">
+	  	<a data-toggle="collapse" href="#collapse2">
+	  	定性温度
+	  	</a>
+	  </div>
+	  <div id="collapse2" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -615,10 +620,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">Δti|HI-CO|HO-CI|HI-HO|CO-CI|LMTD|NTU</div>
+	  <div class="panel-heading">
+	  	<a data-toggle="collapse" href="#collapse3">
+	  	Δti|HI-CO|HO-CI|HI-HO|CO-CI|LMTD|NTU
+	  	</a>
+	  </div>
+	  <div id="collapse3" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -673,10 +684,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">冷热侧定性温度下的各介质物性参数</div>
+	  <div class="panel-heading">
+	  	<a data-toggle="collapse" href="#collapse4">
+	  		冷热侧定性温度下的各介质物性参数
+	  	</a>
+	  </div>
+	  <div id="collapse4" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -749,10 +766,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">流速、导热率</div>
+	  <div class="panel-heading">
+	  	<a data-toggle="collapse" href="#collapse5">
+	  		流速、导热率
+	  	</a>
+	  </div>
+	  <div id="collapse5" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -789,10 +812,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">TK参数</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapseTK">
+	  		TK参数
+	  	</a>
+	  </div>
+	  <div id="collapseTK" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -913,11 +942,17 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 
 	<div class="panel panel-default">
-	  <div class="panel-heading">TM参数</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapseTM">
+	  		TM参数
+	  	</a>
+	  </div>
+	  <div id="collapseTM" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1038,11 +1073,17 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 
 	<div class="panel panel-default">
-	  <div class="panel-heading">TL参数</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapseTL">
+	  		TL参数
+	  	</a>
+	  </div>
+	  <div id="collapseTL" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1163,10 +1204,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">整机R和实际各板定性温度</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapse00">
+	  		整机R和实际各板定性温度
+	  	</a>
+	  </div>
+	  <div id="collapse00" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1227,10 +1274,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">质量守恒下的TK、TM、TL的板片数</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapse01">
+	  		质量守恒下的TK、TM、TL的板片数
+	  	</a>
+	  </div>
+	  <div id="collapse01" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1261,10 +1314,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 	<div class="panel panel-default">
-	  <div class="panel-heading">能量守恒下的TK、TM、TL的板片数</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapse02">
+	  		能量守恒下的TK、TM、TL的板片数
+	  	</a>
+	  </div>
+	  <div id="collapse02" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1295,10 +1354,16 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>
 	<hr >	
 	<div class="panel panel-default">
-	  <div class="panel-heading">结果分析</div>
+	  <div class="panel-heading">
+		<a data-toggle="collapse" href="#collapse03">
+	  		结果分析
+	  	</a>
+	  </div>
+	  <div id="collapse03" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -1349,6 +1414,7 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>	
 	<hr >
 </div>

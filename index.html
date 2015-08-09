@@ -45,18 +45,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#" class="navbar-brand">PHE Tools</a>
+      <a href="index.html" class="navbar-brand">PHE Tools</a>
     </div>
     <nav class="collapse navbar-collapse bs-navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="active">
-          <a href="#">Home</a>
+          <a href="index.html" >板式换热器选型工具
+          </a>
+          <span style="color:#5bc0de;font-size: 8px;top: 2px;position: absolute;right: 2px;">Alpha</span>
+
         </li>
         <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Contact</a>
+          <a href="#">更多</a>
         </li>
     </nav>
   </div>
@@ -67,7 +67,7 @@
     <div class="bs-docs-header" id="content" tabindex="-1">
       <div class="container">
         <h1>板式换热器选型</h1>
-        <p>输入温度、流量、压降、热负荷；得到最专业最权威的选型指导。</p>
+        <p>输入温度、压降、热负荷；得到最专业最权威的选型指导。</p>
         <p>现在就开始吧！</p>
       </div>
     </div>
@@ -102,12 +102,6 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="W_1" class="col-sm-4 control-label">热侧流量</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="单位：m³/s" name="W_1" id="W_1" required>
-                </div>
-              </div>
-              <div class="form-group">
                 <label for="delta_p_1" class="col-sm-4 control-label">热侧压降</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" placeholder="单位：lbf/ft2" name="delta_p_1" id="delta_p_1" required>
@@ -126,12 +120,6 @@
                 <label for="T_2_o" class="col-sm-4 control-label">冷侧出口温度</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" placeholder="单位：°C" name="T_2_o" id="T_2_o" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="W_2" class="col-sm-4 control-label">冷侧流量</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="单位：m³/s" name="W_2" id="W_2" required>
                 </div>
               </div>
               <div class="form-group">
@@ -174,6 +162,7 @@
       </div>
       <br />
       <br />
+<!--      
       <div class="bs-docs-section">
         <h1 id="flow" class="page-header">流量 <small>单位：m³/s</small></h1>
         <p class="lead">所谓流量，是指单位时间内流经封闭管道或明渠有效截面的流体量，又称瞬时流量。当流体量以体积表示时称为体积流量；当流体量以质量表示时称为质量流量。单位时间内流过某一段管道的流体的体积，称为该横截面的体积流量。简称为流量，用Q来表示。</p>
@@ -182,6 +171,7 @@
       </div>
       <br />
       <br />
+-->
       <div class="bs-docs-section">
         <h1 id="pressure" class="page-header">压降 <small>单位：lbf/ft2</small></h1>
         <p class="lead">流体在管中流动时由于能量损失而引起的压力降低。这种能量损失是由流体流动时克服内摩擦力和克服湍流时流体质点间相互碰撞并交换动量而引起的，表现在流体流动的前后处产生压力差，即压降。
@@ -192,6 +182,7 @@
       </div>
       <br />
       <br />
+
       <div class="bs-docs-section">
         <h1 id="heat" class="page-header">热负荷 <small>单位：</small></h1>
         <p class="lead">燃料在燃烧器中（如燃气具、燃气热水器、燃气取暖炉、火箭发动机燃烧室）燃烧时单位时间内所释放的热量。其计算式为：热负荷=燃料消耗量*燃料低热值。热负荷的大小是由主燃烧器燃料消耗量的大小等因素决定的。</p>
@@ -214,9 +205,11 @@
         <li>
           <a href="#temperature">温度</a>
         </li>
+<!--
         <li>
           <a href="#flow">流量</a>
         </li>
+-->
         <li>
           <a href="#pressure">压降</a>
         </li>
