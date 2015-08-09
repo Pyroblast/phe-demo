@@ -34,6 +34,12 @@ include("inc/function.php");
   <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script src="js/docs.min.js"></script>
 <script>
   var _hmt = _hmt || [];
 </script>
@@ -57,6 +63,13 @@ include("inc/function.php");
 	接口面积     -> A_p = pie * (D/2) * (D/2)
  */
 //获取用户输入变量
+if (empty($_POST['T_1_i'])||empty($_POST['T_1_o'])||empty($_POST['W_1'])||empty($_POST['delta_p_1'])
+	||empty($_POST['T_2_i'])||empty($_POST['T_2_o'])
+	||empty($_POST['W_2'])||empty($_POST['delta_p_2'])||empty($_POST['Q'])) {
+	echo "请确认参数输入完整。";	
+	die();
+}
+
 $T_1_i=$_POST['T_1_i'];
 $T_1_o=$_POST['T_1_o'];
 $W_1=$_POST['W_1'];
@@ -65,12 +78,11 @@ $T_2_i=$_POST['T_2_i'];
 $T_2_o=$_POST['T_2_o'];
 $W_2=$_POST['W_2'];
 $delta_p_2=$_POST['delta_p_2'];
-$Q=$_POST['Q'];
+$Q=$_POST['Q'];	
+
 //【计算定性温度T_1_b=(T_1_i+T_1_o)/2，T_2_b=(T_2_i+T_2_o)/2，
 $T_1_b = ($T_1_i+$T_1_o)*0.5;
 $T_2_b = ($T_2_i+$T_2_o)*0.5;
-//echo "定性温度T1b $T_1_b" . "<br >";
-//echo "定性温度T2b $T_2_b" . "<br >";
 //计算   Δti	      HI-CO	     HO-CI	  HI-HO	    CO-CI	  LMTD	    NTU
 //    $Delta_ti       $HICO      $HOCI    $HIHO     $COCI     $LMTD     $NTU
 $Delta_ti = $T_1_i - $T_2_i;
@@ -92,8 +104,6 @@ if ($HIHO < $COCI) {
 } else {
 	$NTU = $HIHO/$LMTD;
 }
-//echo "ti=$Delta_ti"."<br >"."HI-CO=$HICO"."<br >"."HO-CI=$HOCI"."<br >"."HI-HO=$HIHO"."<br >".
-//	"CO-CI=$COCI"."<br >"."LMTD=$LMTD"."<br >"."NTU=$NTU"."<br >";
 
 //提取冷热侧定性温度下的各介质物性参数，密度，导热率，比热，粘度
 //热侧
@@ -121,29 +131,24 @@ $W_2 = $Q/$C_p2/$COCI;
 //判断参数是否有效
 //input($T_1_i,$T_1_o,$W_1,$delta_p_1,$T_2_i,$T_2_o,$W_2,$delta_p_2,$Q);
 
-//echo "$W_1" . "<br >" . "$W_2" . "<br >";
+
 //根据输入的温度和厚度查库找到合适的材质的导热率k_p，
 //【GB/151中规定，100°C下的不锈钢导热率为16.3，可以暂定这个值】
 $k_p = 16;
 /*
-Default：流程Np=1【目前我们只计算单流程】，通过流量计算管口流速Gp
-【这里加入一个约束，初步设定Gp属于1-5m/s区间内的值为合适口径，返回对应的口径，
-取值，同时搜索板型数据库中符合该口径下型号，提取该型号数据（数组）】，选择合适口径，
-提取全部在合适口径下的各板型数据：传热准则式Nu，压降准则式Eu，
-【同时用迭代法计算壁温，假设T_1_w为某一值，U_1*(T_1_b-T_1_w)=Q_1，
-T_2_w=T_1_w-Q_1/(k/t_p),Q_2=U_2*(T_2_w-T_2_b)，直到找出使得Q_1=Q_2的假设温度，行72-74放到这块】
-【每个版型均有自己的C，m值，Pr的指数规则为热侧0.33，冷侧0.4，Nu里面的粘度项指数取值为0.14】
-Nu_1=C_Nu*(Re^m_Nu)*(Pr^0.33)*(miu_b_1/miu_w_1)^0.14，
-Nu_2=C_Nu*(Re^m_Nu)*(Pr^0.33)*(miu_b_2/miu_w_2)^0.14
-Eu_1=C_Eu*Re^m_Eu【m_Eu值为负】
-Eu_2=C_Eu*Re^m_Eu【m_Eu值为负】
-单板有效面积Ar，流道截面积Ac，波纹深度bp，板片厚度tp
-$G_p_1 = ;
-$G_p_2 = ;【冷热侧计算后取较大值，看这个值是否在1-5m/s里面，见43行】
-
-【初版为了优先设计好框架和核心算法，暂定板型数据，取S19A的数据，后续再补充】
-【改成SI单位统一计算】
+选择合适的版型
+通过接口流速的大小来进行筛选，提取接口流速在1到5范围内的版型数据
  */
+$C_D = filter($W_1,$W_2,$roll1,$roll2);
+
+if ($C_D == 14) {
+	echo "无适用版型，请确认输入数据无误";
+	die();
+}
+
+//print_r($C_D);
+//platety(65);
+
 $N_p = 1;
 $plate = array(
 	'ty' => 'S19A',
@@ -509,7 +514,12 @@ if ((ΔT1'-ΔT1) < 1) {
 <div class="container">
 <br >
 	<div class="panel panel-default">
-	  <div class="panel-heading">用户输入值</div>
+	  <div class="panel-heading">
+	  	<a data-toggle="collapse" href="#collapse1">
+	  	用户输入值
+	  	</a>
+	  </div>
+	  <div id="collapse1" class="panel-collapse collapse" >
 	  <table class="table table-hover table-bordered">
 	  	<thead>
 	  		<tr>
@@ -576,6 +586,7 @@ if ((ΔT1'-ΔT1) < 1) {
 	    	</tr>
 	    </tbody>
 	  </table>
+	  </div>
 	</div>
 	<hr >
 	<div class="panel panel-default">
