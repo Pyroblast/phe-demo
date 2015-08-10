@@ -10,25 +10,6 @@
 	冷侧压降	 -> delta_p_2
 	热负荷       -> Q
  */
-//判断参数是否有效
-function input($T_1_i,$T_1_o,$W_1,$delta_p_1,$T_2_i,$T_2_o,$W_2,$delta_p_2,$Q)
-{
-	echo 
-	"热侧进口温度" . $T_1_i . "<br>" . 
-	"热侧出口温度" . $T_1_o . "<br>" . 
-	"热侧流量" . $W_1 . "<br>" . 
-	"热侧压降" . $delta_p_1 . "<br>" . 
-	"冷侧进口温度" . $T_2_i . "<br>" . 
-	"冷侧出口温度" . $T_2_o . "<br>" . 
-	"冷侧流量" . $W_2 . "<br>" . 
-	"冷侧压降" . $delta_p_2 . "<br>" . 
-	"热负荷" . $Q . "<br>";
-}
-function ec($a)
-{
-	echo "$a<br >";
-}
-
 //通过接口流速的大小来进行筛选，提取接口流速在1到5
 function filter($W_1,$W_2,$roll1,$roll2)
 {
@@ -85,22 +66,71 @@ if ($k == 14) {
 }
 
 }
-//通过C_D法兰口径查询版型型号
-function platety($C_D)
+//通过C_D法兰口径查询满足要求的版型id
+function plateid($C_D)
 {
 	include("dbc.php");
-	$sql = "SELECT * FROM `plate` WHERE `C_D`= '" . $C_D . "'";
-	$rs = $db->query($sql);
-	$row = $rs->fetch();
-	if ($row) {
-		print_r($row);
-	} else {
-		echo "查询为空";
-	}
-}
-//查询流速在1到5之间的版型数据
-function plate()
-{
+	for ($i=0; $i < count($C_D); $i++) {
+		$sql = "SELECT * FROM `plate` WHERE `C_D`= '" . $C_D[$i] . "'";
+		$rs = $db->query($sql);
+		$row = $rs->fetchAll();
+		$count = count($row);
+		if ($count !== 0) {
 
+			for ($j=0; $j < $count; $j++) { 
+				//查询plate_thermal_length表中有参数的版型型号，没有则不返回
+				$sql2 = "SELECT * FROM `plate_thermal_length` WHERE `ty`= '" . $row[$j]['ty']. "'";
+				$rs2 = $db->query($sql2);
+				$row2 = $rs2->fetchAll();
+				if (!empty($row2)) {
+					$plateid[]['id'] = $row[$j]['id'];
+				}
+			}
+		}
+	}
+	return $plateid;
+}
+//查询满足要求(流速在1到5之间)的版型数据
+function plate($plateid)
+{
+	include("dbc.php");
+	$count = count($plateid);
+	for ($i=0; $i < $count; $i++) { 
+		$sql = "SELECT * FROM `plate` WHERE `id`= '" . $plateid[$i]['id']. "'";
+		$rs = $db->query($sql);
+		$row = $rs->fetch();
+		$plate_all[$i]['ty'] = $row['ty'];
+		$plate_all[$i]['C_A_L'] = $row['C_A_L'];
+		$plate_all[$i]['C_A_M'] = $row['C_A_M'];
+		$plate_all[$i]['C_A_H'] = $row['C_A_H'];
+		$plate_all[$i]['B_p'] = $row['B_p']/1000;
+		$plate_all[$i]['De'] = $row['De']/1000;
+		$plate_all[$i]['P_D'] = $row['P_D'];
+		$plate_all[$i]['A_c'] = $row['A_c']/1000000;
+		$plate_all[$i]['A_r'] = $row['A_r'];
+		$plate_all[$i]['L_v'] = $row['L_v'];
+		$plate_all[$i]['L_h'] = $row['L_h'];
+		$plate_all[$i]['L'] = $row['L'];
+		$plate_all[$i]['L_w'] = $row['L_w'];
+		$plate_all[$i]['t_p'] = $row['t_p']/1000;
+
+		$sql2 = "SELECT * FROM `plate_thermal_length` WHERE `ty`= '" . $row['ty']. "'";
+		$rs2 = $db->query($sql2);
+		$row2 = $rs2->fetch();
+		$plate_all[$i]['TK_C_Nu'] = $row2['C_nu_tk'];
+		$plate_all[$i]['TK_m_Nu'] = $row2['m_nu_tk'];
+		$plate_all[$i]['TK_C_Eu'] = $row2['C_eu_tk'];
+		$plate_all[$i]['TK_m_Eu'] = $row2['m_eu_tk'];
+		$plate_all[$i]['TM_C_Nu'] = $row2['C_nu_tm'];
+		$plate_all[$i]['TM_m_Nu'] = $row2['m_nu_tm'];
+		$plate_all[$i]['TM_C_Eu'] = $row2['C_eu_tm'];
+		$plate_all[$i]['TM_m_Eu'] = $row2['m_eu_tm'];
+		$plate_all[$i]['TL_C_Nu'] = $row2['C_nu_tl'];
+		$plate_all[$i]['TL_m_Nu'] = $row2['m_nu_tl'];
+		$plate_all[$i]['TL_C_Eu'] = $row2['C_eu_tl'];
+		$plate_all[$i]['TL_m_Eu'] = $row2['m_eu_tl'];
+
+	}
+	return $plate_all;
 }
 ?>
