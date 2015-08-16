@@ -107,7 +107,7 @@ if ($HIHO < $COCI) {
 
 //提取冷热侧定性温度下的各介质物性参数，密度，导热率，比热，粘度
 //热侧
-$sql1 = "SELECT * FROM `water_properties` WHERE `T`= '" . $T_1_b . "'";
+$sql1 = "SELECT * FROM `water_properties` WHERE `T`= '" . round($T_1_b) . "'";
 $rs1 = $db->query($sql1);
 $row1 = $rs1->fetch();
 $roll1 = $row1[2];
@@ -116,7 +116,7 @@ $k1 = $row1[4];
 $miu_d1 = $row1[6];
 $Pr1 = $row1[7];
 //冷侧
-$sql2 = "SELECT * FROM `water_properties` WHERE `T`= '" . $T_2_b . "'";
+$sql2 = "SELECT * FROM `water_properties` WHERE `T`= '" . round($T_2_b) . "'";
 $rs2 = $db->query($sql2);
 $row2 = $rs2->fetch();
 $roll2 = $row2[2];
@@ -221,13 +221,13 @@ $plate = array(
 	    		<th>3</th>
 	    		<th>热侧流量</th>
 	    		<th><?=$W_1?></th>
-	    		<th>m³/s</th>
+	    		<th>kg/s</th>
 	    	</tr>
 	    	<tr>
 	    		<th>4</th>
 	    		<th>热侧压降</th>
 	    		<th><?=$delta_p_1?></th>
-	    		<th>lbf/ft2</th>
+	    		<th>kPa</th>
 	    	</tr>
 	    	<tr>
 	    		<th>5</th>
@@ -245,19 +245,19 @@ $plate = array(
 	    		<th>7</th>
 	    		<th>冷侧流量</th>
 	    		<th><?=$W_2?></th>
-	    		<th>m³/s</th>
+	    		<th>kg/s</th>
 	    	</tr>
 	    	<tr>	
 	    		<th>8</th>
 	    		<th>冷侧压降</th>
 	    		<th><?=$delta_p_2?></th>
-	    		<th>lbf/ft2</th>
+	    		<th>kPa</th>
 	    	</tr>
 	    	<tr>	
 	    		<th>9</th>
 	    		<th>热负荷</th>
 	    		<th><?=$Q?></th>
-	    		<th></th>
+	    		<th>kW</th>
 	    	</tr>
 	    </tbody>
 	  </table>
@@ -349,13 +349,13 @@ $plate = array(
 	    		<th>6</th>
 	    		<th>LMTD</th>
 	    		<th><?=$LMTD?></th>
-	    		<th>°C</th>
+	    		<th></th>
 	    	</tr>
 	    	<tr>
 	    		<th>7</th>
 	    		<th>NTU</th>
 	    		<th><?=$NTU?></th>
-	    		<th>°C</th>
+	    		<th></th>
 	    	</tr>
 	    </tbody>
 	  </table>
@@ -381,63 +381,63 @@ $plate = array(
 	    <tbody>
 	    	<tr>
 	    		<th>1</th>
-	    		<th>roll1</th>
+	    		<th>ρ1</th>
 	    		<th><?=$roll1?></th>
-	    		<th>°C</th>
+	    		<th>kg/m3</th>
 	    	</tr>
 	    	<tr>
 	    		<th>2</th>
 	    		<th>C_p1</th>
 	    		<th><?=$C_p1?></th>
-	    		<th>°C</th>
+	    		<th>J/(kg*K)</th>
 	    	</tr>
 	    	<tr>
 	    		<th>3</th>
 	    		<th>k1</th>
 	    		<th><?=$k1?></th>
-	    		<th>°C</th>
+	    		<th>W/(m*K)</th>
 	    	</tr>
 	    	<tr>
 	    		<th>4</th>
-	    		<th>miu_d1</th>
+	    		<th>μ_d1</th>
 	    		<th><?=$miu_d1?></th>
-	    		<th>°C</th>
+	    		<th>N*s/m2</th>
 	    	</tr>
 	    	<tr>
 	    		<th>5</th>
 	    		<th>Pr1</th>
 	    		<th><?=$Pr1?></th>
-	    		<th>°C</th>
+	    		<th></th>
 	    	</tr>
 	    	<tr>
 	    		<th>6</th>
-	    		<th>roll2</th>
+	    		<th>ρ2</th>
 	    		<th><?=$roll2?></th>
-	    		<th>°C</th>
+	    		<th>kg/m3</th>
 	    	</tr>
 	    	<tr>
 	    		<th>7</th>
 	    		<th>C_p2</th>
 	    		<th><?=$C_p2?></th>
-	    		<th>°C</th>
+	    		<th>J/(kg*K)</th>
 	    	</tr>
 	    	<tr>
 	    		<th>8</th>
 	    		<th>k2</th>
 	    		<th><?=$k2?></th>
-	    		<th>°C</th>
+	    		<th>W/(m*K)</th>
 	    	</tr>
 	    	<tr>
 	    		<th>9</th>
-	    		<th>miu_d2</th>
+	    		<th>μ_d2</th>
 	    		<th><?=$miu_d2?></th>
-	    		<th>°C</th>
+	    		<th>N*s/m2</th>
 	    	</tr>
 	    	<tr>
 	    		<th>10</th>
 	    		<th>Pr2</th>
 	    		<th><?=$Pr2?></th>
-	    		<th>°C</th>
+	    		<th></th>
 	    	</tr>
 	    </tbody>
 	  </table>
@@ -465,25 +465,25 @@ $plate = array(
 	    		<th>1</th>
 	    		<th>W_1</th>
 	    		<th><?=$W_1?></th>
-	    		<th>°C</th>
+	    		<th>kg/s</th>
 	    	</tr>
 	    	<tr>
 	    		<th>2</th>
 	    		<th>W_2</th>
 	    		<th><?=$W_2?></th>
-	    		<th>°C</th>
+	    		<th>kg/s</th>
 	    	</tr>
 	    	<tr>
 	    		<th>3</th>
 	    		<th>k_p</th>
 	    		<th><?=$k_p?></th>
-	    		<th>°C</th>
+	    		<th>W/(m*K)</th>
 	    	</tr>
 	    	<tr>
 	    		<th>4</th>
 	    		<th>N_p</th>
 	    		<th><?=$N_p?></th>
-	    		<th>°C</th>
+	    		<th></th>
 	    	</tr>
 	    </tbody>
 	  </table>
@@ -538,7 +538,7 @@ if ($HIHO < $COCI) {
 
 //提取冷热侧定性温度下的各介质物性参数，密度，导热率，比热，粘度
 //热侧
-$sql1 = "SELECT * FROM `water_properties` WHERE `T`= '" . $T_1_b . "'";
+$sql1 = "SELECT * FROM `water_properties` WHERE `T`= '" . round($T_1_b) . "'";
 $rs1 = $db->query($sql1);
 $row1 = $rs1->fetch();
 $roll1 = $row1[2];
@@ -547,7 +547,7 @@ $k1 = $row1[4];
 $miu_d1 = $row1[6];
 $Pr1 = $row1[7];
 //冷侧
-$sql2 = "SELECT * FROM `water_properties` WHERE `T`= '" . $T_2_b . "'";
+$sql2 = "SELECT * FROM `water_properties` WHERE `T`= '" . round($T_2_b) . "'";
 $rs2 = $db->query($sql2);
 $row2 = $rs2->fetch();
 $roll2 = $row2[2];
@@ -600,7 +600,7 @@ $count = count($plate);
 		<p class='text-center bg-info lead'>" . $plate[$o]['ty'] . "</p>
 		</div>
 		";
-		$inc = include("inc/tktmtl.php");
+		$inc = include("inc/tktmtl2.php");
 
 	}
 ?>
