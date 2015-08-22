@@ -1,6 +1,14 @@
 <?php
 include("inc/dbc.php");
 include("inc/function.php");
+if (empty($_SESSION['token_now'])) {
+  echo "非法请求。";
+  die();
+}
+if ($_SESSION['token_now'] !== $_SESSION['token']) {
+  echo "非法请求。";
+  die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">

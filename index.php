@@ -1,3 +1,7 @@
+<?php
+include("inc/dbc.php");
+include("inc/function.php");
+?>
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>

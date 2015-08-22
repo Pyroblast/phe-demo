@@ -1,4 +1,16 @@
 <?php
+session_start();
+$str = "phe2015";
+$token = md5($str);
+$_SESSION['token'] = $token;
+if (empty($_SESSION['token_now'])) {
+  echo "非法请求。";
+  die();
+}
+if ($_SESSION['token_now'] !== $_SESSION['token']) {
+  echo $_SESSION['token_now'];
+  die();
+}
 /*
 	热侧进口温度 -> T_1_i
 	热侧出口温度 -> T_1_o
