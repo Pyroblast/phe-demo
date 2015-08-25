@@ -4,7 +4,7 @@ $str = "phe2015";
 $token = md5($str);
 $_SESSION['token'] = $token;
 if (empty($_SESSION['token_now'])) {
-  echo "非法请求。";
+  echo "error.";
   die();
 }
 if ($_SESSION['token_now'] !== $_SESSION['token']) {

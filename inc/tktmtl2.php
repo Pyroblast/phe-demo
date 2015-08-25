@@ -53,8 +53,12 @@ if ($W_1 >= $W_2) {
 	$TK_U=1/((1/$TK_h_2)+(1/$TK_h_1)+($plate[$o]['t_p']/$k_p));
 	$TK_NTU_1=2*$TK_U*$plate[$o]['A_r']/($TK_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TK_sigma_1=($TK_V_1_c*$roll1*$C_p1)/($TK_V_2_c*$roll2*$C_p2);
-	$TK_R_1=((1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TK_R_1=$TK_NTU_1/(1+$TK_NTU_1);
+	} else {
+		$TK_R_1=((1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))))/
 	(($TK_sigma_1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))));
+	}
 	$TK_t_1=$TK_R_1*$Delta_ti;
 	$TK_W_1=$TK_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TK_T_b_cp=$T_1_i-($TK_t_1*0.5);
@@ -112,8 +116,12 @@ if ($W_1 >= $W_2) {
 	$TK_U=1/((1/$TK_h_2)+(1/$TK_h_1)+($plate[$o]['t_p']/$k_p));
 	$TK_NTU_1=2*$TK_U*$plate[$o]['A_r']/($TK_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TK_sigma_1=($TK_V_1_c*$roll1*$C_p1)/($TK_V_2_c*$roll2*$C_p2);
-	$TK_R_1=((1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TK_R_1=$TK_NTU_1/(1+$TK_NTU_1);
+	} else {
+		$TK_R_1=((1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))))/
 	(($TK_sigma_1-exp($TK_NTU_1*(1-$TK_sigma_1))*log(exp(1))));
+	}	
 	$TK_t_1=$TK_R_1*$Delta_ti;
 	$TK_W_1=$TK_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TK_T_b_cp=$T_1_i-($TK_t_1*0.5);
@@ -174,8 +182,12 @@ if ($W_1 >= $W_2) {
 	$TM_U=1/((1/$TM_h_2)+(1/$TM_h_1)+($plate[$o]['t_p']/$k_p));
 	$TM_NTU_1=2*$TM_U*$plate[$o]['A_r']/($TM_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TM_sigma_1=($TM_V_1_c*$roll1*$C_p1)/($TM_V_2_c*$roll2*$C_p2);
-	$TM_R_1=((1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TM_R_1=$TM_NTU_1/(1+$TM_NTU_1);
+	} else {
+		$TM_R_1=((1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))))/
 	(($TM_sigma_1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))));
+	}	
 	$TM_t_1=$TM_R_1*$Delta_ti;
 	$TM_W_1=$TM_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TM_T_b_cp=$T_1_i-($TM_t_1*0.5);
@@ -234,8 +246,12 @@ if ($W_1 >= $W_2) {
 	$TM_U=1/((1/$TM_h_2)+(1/$TM_h_1)+($plate[$o]['t_p']/$k_p));
 	$TM_NTU_1=2*$TM_U*$plate[$o]['A_r']/($TM_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TM_sigma_1=($TM_V_1_c*$roll1*$C_p1)/($TM_V_2_c*$roll2*$C_p2);
-	$TM_R_1=((1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TM_R_1=$TM_NTU_1/(1+$TM_NTU_1);
+	} else {
+		$TM_R_1=((1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))))/
 	(($TM_sigma_1-exp($TM_NTU_1*(1-$TM_sigma_1))*log(exp(1))));
+	}	
 	$TM_t_1=$TM_R_1*$Delta_ti;
 	$TM_W_1=$TM_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TM_T_b_cp=$T_1_i-($TM_t_1*0.5);
@@ -297,8 +313,12 @@ if ($W_1 >= $W_2) {
 	$TL_U=1/((1/$TL_h_2)+(1/$TL_h_1)+($plate[$o]['t_p']/$k_p));
 	$TL_NTU_1=2*$TL_U*$plate[$o]['A_r']/($TL_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TL_sigma_1=($TL_V_1_c*$roll1*$C_p1)/($TL_V_2_c*$roll2*$C_p2);
-	$TL_R_1=((1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TL_R_1=$TL_NTU_1/(1+$TL_NTU_1);
+	} else {
+		$TL_R_1=((1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))))/
 	(($TL_sigma_1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))));
+	}	
 	$TL_t_1=$TL_R_1*$Delta_ti;
 	$TL_W_1=$TL_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TL_T_b_cp=$T_1_i-($TL_t_1*0.5);
@@ -357,8 +377,12 @@ if ($W_1 >= $W_2) {
 	$TL_U=1/((1/$TL_h_2)+(1/$TL_h_1)+($plate[$o]['t_p']/$k_p));
 	$TL_NTU_1=2*$TL_U*$plate[$o]['A_r']/($TL_V_1_c*$roll1*$plate[$o]['A_c']*$C_p1*1000);
 	$TL_sigma_1=($TL_V_1_c*$roll1*$C_p1)/($TL_V_2_c*$roll2*$C_p2);
-	$TL_R_1=((1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))))/
+	if ($HIHO == $COCI) {
+		$TL_R_1=$TL_NTU_1/(1+$TL_NTU_1);
+	} else {
+		$TL_R_1=((1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))))/
 	(($TL_sigma_1-exp($TL_NTU_1*(1-$TL_sigma_1))*log(exp(1))));
+	}	
 	$TL_t_1=$TL_R_1*$Delta_ti;
 	$TL_W_1=$TL_V_1_c*$plate[$o]['A_c']*$roll1;
 	$TL_T_b_cp=$T_1_i-($TL_t_1*0.5);
@@ -369,8 +393,13 @@ if ($W_1 >= $W_2) {
 
 //计算整机R
 $Total_sigma=($W_1*$C_p1)/($W_2*$C_p2);
-$Total_R=((1-exp($NTU*(1-$Total_sigma))*log(exp(1))))/
+if ($HIHO == $COCI) {
+	$Total_R=$NTU/(1+$NTU);
+} else {
+	$Total_R=((1-exp($NTU*(1-$Total_sigma))*log(exp(1))))/
 	(($Total_sigma-exp($NTU*(1-$Total_sigma))*log(exp(1))));
+}
+
 
 //计算温度
 $T_TK_1_b=$T_1_i-$TK_t_1/2;

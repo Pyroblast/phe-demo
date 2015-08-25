@@ -63,7 +63,7 @@ if ($_SESSION['token_now'] !== $_SESSION['token']) {
 	热侧压降     -> delta_p_1
 	冷侧进口温度 -> T_2_i
 	冷侧出口温度 -> T_2_o
-	冷侧流量	 -> W_2
+	冷侧流量	i -> W_2
 	冷侧压降	 -> delta_p_2
 	热负荷       -> Q
 
